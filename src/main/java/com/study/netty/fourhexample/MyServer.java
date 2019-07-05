@@ -14,7 +14,7 @@ public class MyServer {
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap().group(bossGroup, workerGroup)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(null);
+                    .childHandler(new MyServerInitializer());
             ChannelFuture channelFuture = serverBootstrap.bind(8899).sync();
             channelFuture.channel().closeFuture();
         }finally {
