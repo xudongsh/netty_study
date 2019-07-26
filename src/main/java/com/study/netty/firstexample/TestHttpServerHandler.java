@@ -10,6 +10,7 @@ import io.netty.util.CharsetUtil;
 import java.net.URI;
 
 public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObject> {
+    //数据的入栈，读取客户端向服务端发送的数据。
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
         System.out.println(msg.getClass());
@@ -23,6 +24,7 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
                 System.out.println("请求favicon.ico");
             }
             System.out.println("执行channelRead0");
+            //ByteBuffer Nio所有的buffer，ByteBuf是netty所有的buffer，Bytebuf的性能要优于ByteBuffer
             ByteBuf content = Unpooled.copiedBuffer("Hello World", CharsetUtil.UTF_8);
             FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,
                     HttpResponseStatus.HTTP_VERSION_NOT_SUPPORTED.OK, content);

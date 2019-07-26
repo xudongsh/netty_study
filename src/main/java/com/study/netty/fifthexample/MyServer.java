@@ -18,8 +18,8 @@ public class MyServer {
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap().group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new WebSocketChannelInitializer());
+                    .handler(new LoggingHandler(LogLevel.INFO)) //针对于bossGroup来说的
+                    .childHandler(new WebSocketChannelInitializer());//针对于workerGroup来说的
             ChannelFuture channelFuture = serverBootstrap.bind(new InetSocketAddress(8899)).sync();
             channelFuture.channel().closeFuture().sync();
         }finally {
